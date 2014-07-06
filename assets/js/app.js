@@ -13,6 +13,7 @@ var app = (function(){
     };
 
     var padToMax = function(s,n){
+        //ideally I should work out the longest field name here and take that as max ...
         while(s.length < n){
             s += '±';
         }
@@ -31,26 +32,36 @@ var app = (function(){
 
     var prettyJSON = function(data){
         var indent = 1;
-        var result = '<div class="code">var ' + app.modelName + ' = new Schema({<br/>';
+        var result = '<div id="copytext" class="code">var ' + app.modelName + ' = new Schema({<br/>';
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 result += padToMax(indentIt(indent) + '' + key + '',50) + ':' + dataType(data[key]) + ',<br/>';
             }
         }
         result = result.slice(0, -6) + '<br/>';
-        result += '})</div>';
+        result += '});</div><br/><button disabled onclick="app.copyToClip()" class="btn btn-sm btn-default">Copy to clipboard</button>';
         return result;
+    };
+
+    app.copyToClip = function(){
+        //apparently this only works for IE ... looking for a better option.
+        /*
+        holdtext.innerText = copytext.innerText;
+        Copied = holdtext.createTextRange();
+        Copied.execCommand("RemoveFormat");
+        Copied.execCommand("Copy");
+        */
     };
 
     var processData = function(data){
         var result = '';
-        if (data.length === 0 || JSON.stringify(data) == '[]'){
+        if (data.length === 0 || JSON.stringify(data) === '[]'){
             result = 'empty or no data returned<br/> ' + data +'<br/>';
         } else {
             result += 'Items: ' + data.length + '<br/>';
             result += 'Object size: ' + Object.keys(data).length + '<br/>';
             result += '<hr/>';
-            result += 'Item 0:<br/>' + prettyJSON(data[0]) + '<br/>';
+            result += 'Structure:<br/>' + prettyJSON(data[0]) + '<br/>';
             result += '<hr/>';
         }
         return result;
@@ -60,7 +71,7 @@ var app = (function(){
         $('#getdata').click(function(evt){
             var url = $('#url').val();
             var urlParts = url.split('/');
-            app.modelName = urlParts[urlParts.length];
+            app.modelName = urlParts[urlParts.length-1];
             if (url && url.length > 0 && url.indexOf('://') > 0 && url.split('/').length > 3){
                 $('.results').prepend('Retrieving data ... <br/>');
                 //use the local api to proxy the request to the external API

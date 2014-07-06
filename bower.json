@@ -1,0 +1,22 @@
+{
+  "name": "gooseMyJSON",
+  "version": "0.0.1",
+  "authors": [
+    "Duncan Abraham <dunc@buzzler.co.uk>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "assets/js/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "underscore": "~1.6.0"
+  }
+}

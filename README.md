@@ -2,7 +2,7 @@
 
 A simple application to read a remote API and create a Mongoose style model from the resulting JSON.  
 
-Manually creating these model files form an established API can take some time so this was just an exercise
+Manually creating these model files from an established API can take some time so this was just an exercise
 in playing with Sails.JS and a simple tool to save time and effort when building applications.
 
 

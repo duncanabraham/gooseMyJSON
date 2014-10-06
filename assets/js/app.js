@@ -27,7 +27,7 @@ var app = (function(){
         if (parseInt(data) == data){ dType = 'String'; }
         if (data+''.toLowerCase() === 'true' || data+''.toLowerCase() === 'false'){ dType = 'Boolean'; }
         if (Date.parse(data) && data.length > 7 && (data.indexOf('-') > -1 || data.indexOf('/') > -1)){ dType = 'Date'; }
-        return '{ type : ' + dType + ' }';
+        return '{ "type" : "' + dType + '" }';
     };
 
     var prettyJSON = function(data){
